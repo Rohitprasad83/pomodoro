@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Button, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Button, Pressable, Alert } from 'react-native'
 import { useState, useEffect } from 'react'
+
 export function Timer({
   minutes,
   timeText,
@@ -9,6 +10,19 @@ export function Timer({
 }) {
   const [seconds, setSeconds] = useState(minutes * 60)
   const [isRunning, setIsRunning] = useState(false)
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      'Pomo Alert',
+      'Pomodoro is running, Do you want to go to a Break?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'OK', onPress: () => console.log('OK Pressed') },
+      ]
+    )
   useEffect(() => {
     let interval = null
     if (isRunning && seconds > 0) {
@@ -54,17 +68,20 @@ export function Timer({
         style={styles.timerButton}
         onPress={isRunning ? stopTimer : startTimer}>
         <Text style={styles.timerButtonText}>
-          {isRunning ? 'Pause' : 'Start'}
+          {isRunning ? 'Pause' : 'Start a Pomodoro'}
         </Text>
       </Pressable>
-      <Pressable
-        style={styles.timerButton}
-        onPress={() => {
-          setSeconds(0)
-          nextScreen()
-        }}>
-        <Text style={styles.timerButtonText}>Next</Text>
-      </Pressable>
+      {isRunning && (
+        <Pressable
+          style={styles.timerButton}
+          onPress={() => {
+            createTwoButtonAlert()
+            setSeconds(0)
+            nextScreen()
+          }}>
+          <Text style={styles.timerButtonText}>Next</Text>
+        </Pressable>
+      )}
     </View>
   )
 }
@@ -80,7 +97,7 @@ const styles = StyleSheet.create({
   },
   timerButton: {
     padding: 12,
-    width: 100,
+    maxWidth: 300,
     backgroundColor: 'green',
     borderRadius: 4,
     alignItems: 'center',

@@ -1,7 +1,9 @@
 import { StyleSheet, Text, View, Button } from 'react-native'
 import { Slider as SliderComp } from '@miblanchard/react-native-slider'
-
-export function Slider({ value, setValue, minValue, maxValue, step }) {
+import { useDispatch } from 'react-redux'
+import { setTimerValue } from '../reducer/timerSlice'
+export function Slider({ value, type, minValue, maxValue, step }) {
+  const dispatch = useDispatch()
   return (
     <View style={styles.slider}>
       <SliderComp
@@ -9,7 +11,9 @@ export function Slider({ value, setValue, minValue, maxValue, step }) {
         maximumValue={maxValue}
         step={step}
         value={value}
-        onValueChange={value => setValue(value[0])}
+        onValueChange={value =>
+          dispatch(setTimerValue({ type: type, value: value[0] }))
+        }
         trackStyle={styles.track}
         thumbStyle={styles.thumb}
       />
