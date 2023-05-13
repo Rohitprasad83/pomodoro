@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { useState, useEffect } from 'react'
 import { Slider } from '../components/Slider'
+import { useSelector } from 'react-redux'
 export default function Settings() {
   const [pomoValue, setPomoValue] = useState(5)
   const [shortBreakValue, setShortBreakValue] = useState(3)
   const [longBreakValue, setLongBreakValue] = useState(10)
-
+  const state = useSelector(state => state.timerStore)
+  console.log(state)
   return (
     <View>
       <Text>Pomodoro Duration : {pomoValue}</Text>

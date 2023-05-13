@@ -20,4 +20,4 @@ export const timerSlice = createSlice({
 
 export const { setTimerValues } = timerSlice.actions
 
-export default timerSlice.reducers
+export default timerSlice.reducer
