@@ -9,7 +9,7 @@ export function Slider({ value, setValue, minValue, maxValue, step }) {
         maximumValue={maxValue}
         step={step}
         value={value}
-        onValueChange={value => setValue(value)}
+        onValueChange={value => setValue(value[0])}
         trackStyle={styles.track}
         thumbStyle={styles.thumb}
       />

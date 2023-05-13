@@ -1,13 +1,17 @@
+import * as React from 'react'
 import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { useState, useEffect } from 'react'
 import { Slider } from '../components/Slider'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setTimerValues } from '../reducer/timerSlice'
 export default function Settings() {
-  const [pomoValue, setPomoValue] = useState(5)
-  const [shortBreakValue, setShortBreakValue] = useState(3)
-  const [longBreakValue, setLongBreakValue] = useState(10)
-  const state = useSelector(state => state.timerStore)
-  console.log(state)
+  const { pomo, shortBreak, longBreak } = useSelector(state => state.timerStore)
+  const [pomoValue, setPomoValue] = useState(pomo)
+  const [shortBreakValue, setShortBreakValue] = useState(shortBreak)
+  const [longBreakValue, setLongBreakValue] = useState(longBreak)
+  const dispatch = useDispatch()
+  // console.log('from settings', pomo)
+  // console.log(typeof pomoValue, pomoValue)
   return (
     <View>
       <Text>Pomodoro Duration : {pomoValue}</Text>
@@ -36,8 +40,14 @@ export default function Settings() {
         maxValue={30}
         step={5}
       />
-      <Pressable>
-        <Text>Save</Text>
+      <Pressable
+        onPress={() =>
+          dispatch(
+            setTimerValues({ pomoValue, shortBreakValue, longBreakValue })
+          )
+        }
+        style={styles.headerButton}>
+        <Text style={styles.headerButtonText}>Save</Text>
       </Pressable>
     </View>
   )
@@ -50,11 +60,21 @@ const styles = StyleSheet.create({
   },
   track: {
     height: 10,
-    color: 'pink',
   },
   thumb: {
     height: 40,
     width: 40,
     borderRadius: 40,
+  },
+  headerButton: {
+    padding: 8,
+    backgroundColor: 'blue',
+    elevation: 8,
+    borderRadius: 2,
+    marginTop: 100,
+  },
+  headerButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
 })

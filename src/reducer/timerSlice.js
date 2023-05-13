@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    pomoValue: 25,
-    shortBreakValue: 5,
-    longBreakValue: 15,
+    pomo: 25,
+    shortBreak: 5,
+    longBreak: 15,
 }
 
 export const timerSlice = createSlice({
@@ -11,9 +11,10 @@ export const timerSlice = createSlice({
     initialState,
     reducers: {
         setTimerValues: (state, action) => {
-            state.pomoValue = action.payload.pomoValue
-            state.shortBreakValue = action.payload.shortBreakValue
-            state.longBreakValue = action.payload.longBreakValue
+            console.log('from reducer', action.payload)
+            state.pomo = action.payload.pomoValue
+            state.shortBreak = action.payload.shortBreakValue
+            state.longBreak = action.payload.longBreakValue
         },
     },
 })
