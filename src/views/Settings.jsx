@@ -6,9 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { restoreDefault } from '../reducer/timerSlice'
 export default function Settings() {
   const { pomo, shortBreak, longBreak } = useSelector(state => state.timerStore)
-  // const [pomoValue, setPomoValue] = useState(pomo)
-  // const [shortBreakValue, setShortBreakValue] = useState(shortBreak)
-  // const [longBreakValue, setLongBreakValue] = useState(longBreak)
   const dispatch = useDispatch()
 
   return (
