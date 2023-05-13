@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { LongBreak } from '../components/LongBreak'
 
 const initialState = {
     pomo: 25,
@@ -10,15 +11,31 @@ export const timerSlice = createSlice({
     name: 'timer',
     initialState,
     reducers: {
-        setTimerValues: (state, action) => {
-            console.log('from reducer', action.payload)
-            state.pomo = action.payload.pomoValue
-            state.shortBreak = action.payload.shortBreakValue
-            state.longBreak = action.payload.longBreakValue
+        setTimerValue: (state, action) => {
+            switch (action.payload.type) {
+                case 'Pomo':
+                    {
+                        state.pomo = action.payload.value
+                        break
+                    }
+                case 'ShortBreak':
+                    {
+                        state.shortBreak = action.payload.value
+                        break
+                    }
+                case 'LongBreak':
+                    {
+                        state.longBreak = action.payload.value
+                        break
+                    }
+            }
+        },
+        restoreDefault: state => {;
+            (state.pomo = 25), (state.shortBreak = 5), (state.longBreak = 15)
         },
     },
 })
 
-export const { setTimerValues } = timerSlice.actions
+export const { setTimerValue, restoreDefault } = timerSlice.actions
 
 export default timerSlice.reducer
