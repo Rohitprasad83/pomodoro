@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, Button } from 'react-native'
-import { useState, useEffect } from 'react'
+import { StyleSheet } from 'react-native'
 import { Timer } from './Timer'
+import { useSelector } from 'react-redux'
+
 export function Pomodoro({ pomoCount, setPomoCount, setScreen }) {
+  const { pomo } = useSelector(state => state.timerStore)
   return (
     <Timer
-      minutes={25}
+      minutes={pomo}
       timeText={'Time to Focus!'}
       pomoCount={pomoCount}
       setPomoCount={setPomoCount}
