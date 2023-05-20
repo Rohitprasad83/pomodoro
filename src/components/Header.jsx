@@ -8,7 +8,7 @@ export function Header() {
   const [pomoCount, setPomoCount] = useState(0)
   return (
     <View style={styles.headerContainer}>
-      <View style={styles.headers}>
+      {/* <View style={styles.headers}>
         <Pressable
           style={screen === 'Pomodoro' ? styles.modeOn : styles.headerButton}
           onPress={() => setScreen('Pomodoro')}
@@ -27,8 +27,8 @@ export function Header() {
           android_ripple={{ color: '#fff' }}>
           <Text style={styles.headerButtonText}>Long Break</Text>
         </Pressable>
-      </View>
-      <View>
+      </View> */}
+      {/* <View>
         {screen === 'Pomodoro' ? (
           <Pomodoro
             pomoCount={pomoCount}
@@ -40,7 +40,7 @@ export function Header() {
         ) : (
           <LongBreak pomoCount={pomoCount} setScreen={setScreen} />
         )}
-      </View>
+      </View> */}
     </View>
   )
 }
