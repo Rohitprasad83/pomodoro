@@ -1,15 +1,9 @@
 import { StyleSheet, Text, View, Button, Pressable, Alert } from 'react-native'
 import { useState, useEffect } from 'react'
 
-export function Timer({
-  minutes,
-  timeText,
-  pomoCount,
-  setPomoCount,
-  setScreen,
-}) {
+export function Timer({ minutes, timeText, pomoCount }) {
   const [seconds, setSeconds] = useState(minutes * 60)
-  const [isRunning, setIsRunning] = useState(false)
+  const [isRunning, setIsRunning] = useState(true)
   const createTwoButtonAlert = () =>
     Alert.alert(
       'Pomo Alert',
@@ -20,7 +14,13 @@ export function Timer({
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        { text: 'OK', onPress: () => console.log('OK Pressed') },
+        {
+          text: 'OK',
+          onPress: () => {
+            setSeconds(0)
+            nextScreen()
+          },
+        },
       ]
     )
   useEffect(() => {
@@ -45,30 +45,31 @@ export function Timer({
   }
 
   function nextScreen() {
-    if (minutes === 25) {
-      setPomoCount()
-      if (pomoCount > 0 && pomoCount % 4 === 0) {
-        setScreen('LongBreak')
-      } else {
-        setScreen('ShortBreak')
-      }
-    } else if (minutes === 5) {
-      setScreen('Pomodoro')
-    } else if (minutes === 15) {
-      setScreen('Pomodoro')
-    }
+    // if (minutes === 25) {
+    //   if (pomoCount > 0 && pomoCount % 4 === 0) {
+    //     setScreen('LongBreak')
+    //   } else {
+    //     setScreen('ShortBreak')
+    //   }
+    // } else if (minutes === 5) {
+    //   setScreen('Pomodoro')
+    // } else if (minutes === 15) {
+    //   setScreen('Pomodoro')
+    // }
   }
 
   return (
     <View style={styles.container}>
       <Text>{pomoCount > 0 ? `#${pomoCount}` : ''}</Text>
-      <Text style={styles.timeText}>{timeText}</Text>
+      <Text style={styles.timeText}>
+        {isRunning ? timeText : 'Pomodoro is Paused'}
+      </Text>
       <Text style={styles.displayTime}>{displayTime()}</Text>
       <Pressable
         style={styles.timerButton}
         onPress={isRunning ? stopTimer : startTimer}>
         <Text style={styles.timerButtonText}>
-          {isRunning ? 'Pause' : 'Start a Pomodoro'}
+          {isRunning ? 'Pause' : 'Resume'}
         </Text>
       </Pressable>
       {isRunning && (
@@ -76,8 +77,6 @@ export function Timer({
           style={styles.timerButton}
           onPress={() => {
             createTwoButtonAlert()
-            setSeconds(0)
-            nextScreen()
           }}>
           <Text style={styles.timerButtonText}>Next</Text>
         </Pressable>
@@ -88,8 +87,10 @@ export function Timer({
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    flex: 1,
     gap: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   displayTime: {
     fontSize: 50,

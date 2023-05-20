@@ -7,7 +7,7 @@ export function Pomodoro({ pomoCount, setPomoCount, setScreen }) {
   return (
     <Timer
       minutes={pomo}
-      timeText={'Time to Focus!'}
+      timeText={'Are you ready to Focus?'}
       pomoCount={pomoCount}
       setPomoCount={setPomoCount}
       setScreen={setScreen}
